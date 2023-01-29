@@ -1,4 +1,4 @@
-
+#include "config.h"
 #include "Arduino.h"
 #include "ArduinoJson.h"
 #include "Esp.h"
@@ -14,7 +14,7 @@ WiFiClient client;
 bool sendData(String data){
   if(WiFi.status()==WL_CONNECTED){
     http.addHeader("Content-Type", "application/json");
-    int status = http.PUT(data);
+    int status = http.POST(data);
     return (status==200)?true:false;
   }
   return false;
@@ -26,7 +26,7 @@ void setup()
   digitalWrite(2, LOW);
   Serial.begin(115200);
   Serial.setTimeout(30000);
-  WiFi.begin("iot_project", "krkjkkkk"); 
+  WiFi.begin(SSID_NAME, WIFI_PASSWORD); 
  linkSerial.begin(115200);
   while (WiFi.status() != WL_CONNECTED) {
       delay(1000);
@@ -35,7 +35,7 @@ void setup()
 
   if(WiFi.status()== WL_CONNECTED){
     Serial.println(WiFi.localIP());
-    String server = "http://192.168.1.209:1880/weather";
+    String server = ENDPOINT;
     http.begin(client, server);
   }
 }
@@ -48,6 +48,7 @@ void loop()
     // Allocate the JSON document
     // This one must be bigger than for the sender because it must store the strings
     String x = linkSerial.readStringUntil('\n');
+    Serial.println(x);
     sendData(x);
   }
 }

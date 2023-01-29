@@ -1,0 +1,8 @@
+#ifndef A312376C_285C_4B3F_AF1E_6C353094587A
+#define A312376C_285C_4B3F_AF1E_6C353094587A
+
+#define ENDPOINT "http://adres.com/api/device/pm8j2wzb"
+#define SSID_NAME "SSID"
+#define WIFI_PASSWORD "pass"
+
+#endif /* A312376C_285C_4B3F_AF1E_6C353094587A */
